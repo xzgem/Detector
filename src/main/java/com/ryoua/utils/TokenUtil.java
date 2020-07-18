@@ -1,0 +1,140 @@
+package com.ryoua.utils;
+
+import com.ryoua.config.JwtConfig;
+import com.ryoua.exception.CustomException;
+import com.ryoua.model.common.Audience;
+import com.ryoua.model.common.ResultCode;
+import io.jsonwebtoken.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.StringRedisTemplate;
+
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.security.Key;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
+/**
+ * * @Author: RyouA
+ * * @Date: 2020/7/18
+ **/
+@Configuration
+@EnableConfigurationProperties(JwtConfig.class)
+public class TokenUtil {
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
+
+    private static Logger log = LoggerFactory.getLogger(TokenUtil.class);
+
+    public static final String AUTH_HEADER_KEY = "Authorization";
+
+    public static final String TOKEN_PREFIX = "Bearer ";
+
+    @Autowired
+    private static JwtConfig jwtConfig;
+
+    /**
+     * 解析jwt
+     *
+     * @param jsonWebToken
+     * @param base64Security
+     * @return
+     */
+    public static Claims parseJWT(String jsonWebToken, String base64Security) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(DatatypeConverter.parseBase64Binary(base64Security))
+                    .parseClaimsJws(jsonWebToken).getBody();
+            return claims;
+        } catch (ExpiredJwtException eje) {
+            log.error("===== Token过期 =====", eje);
+            throw new CustomException(ResultCode.PERMISSION_TOKEN_EXPIRED);
+        } catch (Exception e) {
+            log.error("===== token解析异常 =====", e);
+            throw new CustomException(ResultCode.PERMISSION_TOKEN_INVALID);
+        }
+    }
+
+    /**
+     * 构建jwt
+     *
+     * @param userId
+     * @param username
+     * @param audience
+     * @return
+     */
+    public String createJWT(String userId, String username, Audience audience) {
+
+        // 使用HS256加密算法
+        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
+        long nowMillis = System.currentTimeMillis();
+        Date now = new Date(nowMillis);
+
+        //生成签名密钥
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(audience.getBase64Secret());
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
+        //userId是重要信息，进行加密下
+        String encryId = Base64Util.encode(userId);
+
+        //添加构成JWT的参数
+        JwtBuilder builder = Jwts.builder().setHeaderParam("typ", "JWT")
+                // 可以将基本不重要的对象信息放到claims
+                .claim("userId", encryId)
+                // 代表这个JWT的主体，即它的所有人
+                .setSubject(username)
+                // 代表这个JWT的签发主体
+                .setIssuer(audience.getClientId())
+                // 是一个时间戳，代表这个JWT的签发时间
+                .setIssuedAt(new Date())
+                // 代表这个JWT的接收对象
+                .setAudience(audience.getName())
+                .signWith(signatureAlgorithm, signingKey);
+        String jwt = builder.compact();
+        //生成JWT保存到reids
+        redisTemplate.opsForValue().set(username, jwt);
+        //设置一天过期
+        redisTemplate.expire(username, 1, TimeUnit.HOURS);
+        return jwt;
+    }
+
+    /**
+     * 从token中获取用户名
+     *
+     * @param token
+     * @param base64Security
+     * @return
+     */
+    public static String getUsername(String token, String base64Security) {
+        return parseJWT(token, base64Security).getSubject();
+    }
+
+    /**
+     * 从token中获取用户ID
+     *
+     * @param token
+     * @param base64Security
+     * @return
+     */
+    public static String getUserId(String token, String base64Security) {
+        String userId = parseJWT(token, base64Security).get("userId", String.class);
+        return Base64Util.decode(userId);
+    }
+
+    /**
+     * 是否已过期
+     *
+     * @param token
+     * @param base64Security
+     * @return
+     */
+    public static boolean isExpiration(String token, String base64Security) {
+        return parseJWT(token, base64Security).getExpiration().before(new Date());
+    }
+}
