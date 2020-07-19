@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class JwtConfig {
     /**
-     * jwt 加密 key，默认值：huaruan.
+     * jwt 加密 key，默认值：RyouA.
      */
-    private String key = "huaruan";
+    private String key = "RyouA";
 
     /**
      * jwt 过期时间，默认值：36000000L {@code 600 分钟}.

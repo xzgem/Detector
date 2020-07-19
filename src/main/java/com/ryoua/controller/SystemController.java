@@ -36,6 +36,7 @@ public class SystemController {
 
     @GetMapping("/systemInfo/all")
     public Result getAllSystemInfoByUserName() {
+
         return Result.SUCCESS();
     }
 }
