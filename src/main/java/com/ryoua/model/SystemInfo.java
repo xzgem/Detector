@@ -14,6 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class SystemInfo {
+    private Integer id;
     private String ip;
     private String mac;
     private String javaVersion;

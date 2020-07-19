@@ -7,10 +7,10 @@ package com.ryoua.model.common;
 public enum ResultCode {
 
     /* 成功状态码 */
-    SUCCESS(1,"操作成功！"),
+    SUCCESS(0,"操作成功！"),
 
     /* 错误状态码 */
-    FAIL(0,"操作失败！"),
+    FAIL(500,"操作失败！"),
 
     /* 参数错误：10001-19999 */
     PARAM_IS_INVALID(10001, "参数无效"),
@@ -28,8 +28,9 @@ public enum ResultCode {
     /* 权限错误：70001-79999 */
     PERMISSION_TOKEN_EXPIRED(70004, "token已过期"),
     PERMISSION_TOKEN_INVALID(70006, "无效token"),
-    PERMISSION_SIGNATURE_ERROR(70007, "签名失败");
+    PERMISSION_SIGNATURE_ERROR(70007, "签名失败"),
 
+    USER_IS_EXIST(50004, "用户已经注册");
 
     int code;
     String message;

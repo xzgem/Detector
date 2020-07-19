@@ -10,35 +10,52 @@ public class Result<T> {
     int code;
 
     //提示信息
-    String message;
+    String msg;
 
     //结果数据
     T data;
 
+    long count = 1;
+
     public Result(int code, String message) {
         this.code = code;
-        this.message = message;
+        this.msg = message;
     }
 
     public Result(int code, String message, T data) {
         this.code = code;
-        this.message = message;
+        this.msg = message;
         this.data = data;
+    }
+
+    public Result(int code, String message, T data, long count) {
+        this.code = code;
+        this.msg = message;
+        this.data = data;
+        this.count = count;
     }
 
     public Result(ResultCode resultCode){
         this.code = resultCode.code();
-        this.message = resultCode.message();
+        this.msg = resultCode.message();
     }
 
     public Result(ResultCode resultCode, T data){
         this.code = resultCode.code();
-        this.message = resultCode.message();
+        this.msg = resultCode.message();
         this.data = data;
     }
 
     public Result(String message){
-        this.message = message;
+        this.msg = message;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
     }
 
     public static Result SUCCESS(){
@@ -66,11 +83,11 @@ public class Result<T> {
     }
 
     public String getMessage() {
-        return message;
+        return msg;
     }
 
     public void setMessage(String message) {
-        this.message = message;
+        this.msg = message;
     }
 
     public T getData() {
