@@ -16,7 +16,9 @@ import lombok.ToString;
 public class SystemInfo {
     private Integer id;
     private String ip;
+    private Integer user;
     private String mac;
+    private String host;
     private String javaVersion;
     private String osName;
     private String osVersion;
