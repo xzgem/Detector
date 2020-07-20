@@ -30,7 +30,8 @@ public enum ResultCode {
     PERMISSION_TOKEN_INVALID(70006, "无效token"),
     PERMISSION_SIGNATURE_ERROR(70007, "签名失败"),
 
-    USER_IS_EXIST(50004, "用户已经注册");
+    USER_IS_EXIST(50004, "用户已经注册"),
+    USER_LOGIN_ERROR(50007, "账号或密码错误");
 
     int code;
     String message;

@@ -1,15 +1,24 @@
 package com.ryoua.handler;
 
-import com.google.gson.Gson;
+import com.ryoua.config.JWTIgnore;
+import com.ryoua.exception.CustomException;
+import com.ryoua.model.common.Audience;
+import com.ryoua.model.common.ResultCode;
+import com.ryoua.utils.TokenUtil;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * * @Author: RyouA
@@ -20,65 +29,44 @@ import java.util.Map;
 public class HttpInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired
-    private Gson gson;
+    private Audience audience;
 
-    private static final String START_TIME = "requestStartTime";
-
-    /**
-     * 处理前
-     * @param request
-     * @param response
-     * @param handler
-     * @return
-     * @throws Exception
-     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String url = request.getRequestURI().toString();
-        Map parameterMap = request.getParameterMap();
-        log.info("request start url:{},params:{}",url, gson.toJson(parameterMap));
-        long startTime = System.currentTimeMillis();
-        request.setAttribute(START_TIME,startTime);
+        // 忽略带JwtIgnore注解的请求, 不做后续token认证校验
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            JWTIgnore jwtIgnore = handlerMethod.getMethodAnnotation(JWTIgnore.class);
+            if (jwtIgnore != null) {
+                return true;
+            }
+        }
+
+        if (HttpMethod.OPTIONS.equals(request.getMethod())) {
+            response.setStatus(HttpServletResponse.SC_OK);
+            return true;
+        }
+
+        // 获取请求头信息authorization信息
+        final String authHeader = request.getHeader(TokenUtil.AUTH_HEADER_KEY);
+        log.info("## authHeader= {}", authHeader);
+
+        if (StringUtils.isBlank(authHeader) || !authHeader.startsWith(TokenUtil.TOKEN_PREFIX)) {
+            log.info("### 用户未登录，请先登录 ###");
+            throw new CustomException(ResultCode.USER_NOT_LOGGED_IN);        }
+
+        // 获取token
+        final String token = authHeader.substring(7);
+
+        if(audience == null){
+            BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext());
+            audience = (Audience) factory.getBean("audience");
+        }
+
+        // 验证token是否有效--无效已做异常抛出，由全局异常处理后返回对应信息
+        Claims claims = TokenUtil.parseJWT(token, audience.getBase64Secret());
+        UserLocal.add(Integer.parseInt(TokenUtil.getUserId(token, audience.getBase64Secret())));
+        UserLocal.add(request);
         return true;
-    }
-
-    /**
-     * 处理后调用（正常）
-     * @param request
-     * @param response
-     * @param handler
-     * @param modelAndView
-     * @throws Exception
-     */
-    @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        String url = request.getRequestURI().toString();
-        Map parameterMap = request.getParameterMap();
-        log.info("request finish url:{},params:{}",url,gson.toJson(parameterMap));
-
-    }
-
-    /**
-     * 处理后调用(任何情况)
-     * @param request
-     * @param response
-     * @param handler
-     * @param ex
-     * @throws Exception
-     */
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        String url = request.getRequestURI().toString();
-        long start = (long) request.getAttribute(START_TIME);
-        long end = System.currentTimeMillis();
-        log.info("request exception url:{},cost:{}ms",url,end - start);
-        removeThreadLocalInfo();
-    }
-
-    /**
-     * 移除信息
-     */
-    public void removeThreadLocalInfo(){
-        UserLocal.remove();
     }
 }

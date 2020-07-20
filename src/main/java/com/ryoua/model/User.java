@@ -2,7 +2,6 @@ package com.ryoua.model;
 
 import lombok.Data;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,13 +10,12 @@ import java.util.Date;
  **/
 @Data
 public class User {
-    private String id;
+    private Integer id;
     private String username;
     private String password;
     private String phone;
     private String email;
     private Date createTime;
     private Date updateTime;
-    private String headPhoto;
     private Boolean isRemember;
 }

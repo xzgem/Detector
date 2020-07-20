@@ -1,7 +1,10 @@
 package com.ryoua.controller;
 
+import cn.hutool.json.JSONObject;
+import com.google.gson.Gson;
 import com.ryoua.config.JWTIgnore;
 import com.ryoua.model.User;
+import com.ryoua.model.common.Audience;
 import com.ryoua.model.common.Result;
 import com.ryoua.model.common.ResultCode;
 import com.ryoua.service.UserService;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.UUID;
 
 /**
@@ -28,22 +32,26 @@ public class UserController {
     private TokenUtil tokenUtil;
 
     @Autowired
+    private Audience audience;
+
+    @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
-    public String Login() {
-        return "login";
-    }
+    @Autowired
+    private Gson gson;
 
     @PostMapping("/login")
     @ResponseBody
     @JWTIgnore
-    public Result adminLogin(@RequestBody User user) {
-        if (!userService.login(user.getUsername(), user.getPassword())) {
-            return Result.FAIL();
+    public Result login(HttpServletResponse response, @RequestBody User user) {
+        User user1 = userService.getUserByUserName(user.getUsername());
+        if (user1 == null || (!user1.getPassword().equals(user.getPassword()))) {
+            return new Result(ResultCode.USER_LOGIN_ERROR);
         }
-        String userId = UUID.randomUUID().toString();
-        return Result.SUCCESS();
+
+        String token = TokenUtil.createJWT(String.valueOf(user1.getId()), user.getUsername(), audience);
+        log.info("### 登录成功, token={} ###", token);
+        return Result.SUCCESS(token);
     }
 
     @PostMapping("/register")

@@ -9,19 +9,19 @@ import javax.servlet.http.HttpServletRequest;
  * * @Date: 2020/7/19
  **/
 public class UserLocal {
-    private static final ThreadLocal<User> userLocal = new ThreadLocal<User>();
+    private static final ThreadLocal<Integer> userLocal = new ThreadLocal<>();
 
     private static final ThreadLocal<HttpServletRequest> requestHolder = new ThreadLocal<>();
 
-    public static void add(User sysUser){
-        userLocal.set(sysUser);
+    public static void add(Integer userId){
+        userLocal.set(userId);
     }
 
     public static void add(HttpServletRequest request){
         requestHolder.set(request);
     }
 
-    public static User getCurrentUser(){
+    public static Integer getCurrentUserId(){
         return userLocal.get();
     }
 

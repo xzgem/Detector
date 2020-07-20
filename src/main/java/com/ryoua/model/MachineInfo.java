@@ -16,7 +16,6 @@ import lombok.ToString;
 public class MachineInfo {
     private Integer id;
     private String ip;
-    private Integer user;
     private String mac;
     private String host;
     private String javaVersion;
@@ -25,4 +24,5 @@ public class MachineInfo {
     private String username;
     private Object remark;
     private String updateTime;
+    private String uid;
 }
