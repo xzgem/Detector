@@ -13,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class SystemInfo {
+public class MachineInfo {
     private Integer id;
     private String ip;
     private Integer user;
@@ -23,6 +23,6 @@ public class SystemInfo {
     private String osName;
     private String osVersion;
     private String username;
-    private Object other;
+    private Object remark;
     private String updateTime;
 }
