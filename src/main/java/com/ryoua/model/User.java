@@ -10,12 +10,12 @@ import java.util.Date;
  **/
 @Data
 public class User {
-    private Integer id;
+    private int id;
     private String username;
     private String password;
     private String phone;
     private String email;
     private Date createTime;
     private Date updateTime;
-    private Boolean isRemember;
+    private int valid;
 }

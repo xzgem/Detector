@@ -51,7 +51,7 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
         final String authHeader = request.getHeader(TokenUtil.AUTH_HEADER_KEY);
         log.info("## authHeader= {}", authHeader);
 
-        if (StringUtils.isBlank(authHeader) || !authHeader.startsWith(TokenUtil.TOKEN_PREFIX)) {
+        if (StringUtils.isBlank(authHeader)) {
             log.info("### 用户未登录，请先登录 ###");
             throw new CustomException(ResultCode.USER_NOT_LOGGED_IN);        }
 

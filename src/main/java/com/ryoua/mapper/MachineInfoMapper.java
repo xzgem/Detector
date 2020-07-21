@@ -20,5 +20,8 @@ public interface MachineInfoMapper {
     @Select(value = "select * from sys_machine where ip = #{ip} and uid = #{userId}")
     MachineInfo getMachineInfoByIpAndUserId(String ip, Integer userId);
 
+    @Select(value = "select * from sys_machine where id = #{id} and valid = 1")
+    MachineInfo getMachineInfoById(Integer id);
+
     void addMachine();
 }

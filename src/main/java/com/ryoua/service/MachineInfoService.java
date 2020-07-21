@@ -23,6 +23,9 @@ public class MachineInfoService {
         return pageInfo;
     }
 
+    public MachineInfo getMachineInfoById(Integer id) {
+        return machineInfoMapper.getMachineInfoById(id);
+    }
 
     public void deleteMachineById(Integer id) {
         machineInfoMapper.deleteMachineById(id);

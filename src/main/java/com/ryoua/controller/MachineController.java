@@ -2,6 +2,7 @@ package com.ryoua.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.google.gson.Gson;
+import com.ryoua.config.JWTIgnore;
 import com.ryoua.model.MachineInfo;
 import com.ryoua.model.common.Result;
 import com.ryoua.service.MachineInfoService;
@@ -30,7 +31,7 @@ public class MachineController {
 
     private static final String DETECTOR_SYSTEMINFO = "detector:machineinfo";
 
-    @PostMapping(value = "machineInfo")
+    @PostMapping(value = "/machine/register")
     public Result getSystemInfoFromServer(@RequestBody MachineInfo machineInfo) {
         log.info(machineInfo.toString());
         redisUtil.set(DETECTOR_SYSTEMINFO + machineInfo.getMac(), gson.toJson(machineInfo));
@@ -38,18 +39,24 @@ public class MachineController {
         return Result.SUCCESS();
     }
 
-    @GetMapping("/machineInfo/all")
+    @GetMapping("/machineInfo")
     public Result getAllMachineInfoByUserName(@RequestParam(value = "page") int page, @RequestParam(value = "limit") int limit) {
         PageInfo<MachineInfo> list = machineInfoService.getAllMachineInfoByUserName("123", page, limit);
         return new Result(0, "ok", list.getList(), list.getTotal());
     }
 
-    @PostMapping("/machineInfo/add")
+    @GetMapping("/machineInfo/{id}")
+    public Result getMachineInfoById(@PathVariable("id") Integer id) {
+        MachineInfo machineInfo = machineInfoService.getMachineInfoById(id);
+        return new Result(0, "ok", machineInfo);
+    }
+
+    @PostMapping("/machineInfo")
     public Result addMachineInfo(@RequestBody MachineInfo machineInfo) {
         return Result.SUCCESS();
     }
 
-    @PostMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public Result deleteMachineById(@PathVariable("id") Integer id) {
         machineInfoService.deleteMachineById(id);
         return Result.SUCCESS();

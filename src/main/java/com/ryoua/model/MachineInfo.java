@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class MachineInfo {
-    private Integer id;
+    private int id;
     private String ip;
     private String mac;
     private String host;
@@ -24,5 +24,6 @@ public class MachineInfo {
     private String username;
     private Object remark;
     private String updateTime;
-    private String uid;
+    private int user;
+    private int valid;
 }
