@@ -13,6 +13,27 @@ public class StringUtil {
         return UUID.randomUUID().toString().replace("-", "");
     }
 
+    public static String mybatisUseIn(String string) {
+        string = "(" + string + ")";
+        string = string.replace("[", "");
+        string = string.replace("]", "");
+        return string;
+    }
+
+    public static String turnNullToBlank(String string) {
+        if (string == null || string.equals(""))
+            return "";
+        else
+            return string;
+    }
+
+    public static String checkProperties(String string) {
+        string = turnNullToBlank(string);
+        if (string.equals(" "))
+            string = "";
+        return string;
+    }
+
     /**
      * 随机6位验证码生成
      */

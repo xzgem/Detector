@@ -1,6 +1,5 @@
 package com.ryoua.controller;
 
-import cn.hutool.json.JSONObject;
 import com.google.gson.Gson;
 import com.ryoua.config.JWTIgnore;
 import com.ryoua.model.User;
@@ -9,17 +8,14 @@ import com.ryoua.model.common.Result;
 import com.ryoua.model.common.ResultCode;
 import com.ryoua.service.UserService;
 import com.ryoua.utils.TokenUtil;
-import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.UUID;
 
 /**
  * * @Author: RyouA
@@ -27,19 +23,7 @@ import java.util.UUID;
  **/
 @Slf4j
 @Controller
-public class UserController {
-    @Autowired
-    private TokenUtil tokenUtil;
-
-    @Autowired
-    private Audience audience;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private Gson gson;
-
+public class UserController extends BaseController{
     @PostMapping("/login")
     @ResponseBody
     @JWTIgnore
