@@ -26,6 +26,10 @@ public class MachineInfoService {
         return pageInfo;
     }
 
+    public MachineInfo getMachineinfoByIp(String ip) {
+        return machineInfoMapper.getMachineinfoByIp(ip);
+    }
+
     public PageInfo<MachineInfo> searchMachineInfoByIpAndMac(String ip, String mac, int page, int limit) {
         PageHelper.startPage(page, limit);
         ip = StringUtil.checkProperties(ip);
@@ -50,6 +54,15 @@ public class MachineInfoService {
         String deleteIds = ids.toString();
         deleteIds = StringUtil.mybatisUseIn(deleteIds);
         machineInfoMapper.deleteMachineByIds(deleteIds);
+    }
+
+    public boolean addMachine(MachineInfo machineInfo) {
+        return machineInfoMapper.addMachineInfo(machineInfo.getUser(),
+                machineInfo.getIp(),
+                machineInfo.getHost(),
+                machineInfo.getOsName(),
+                machineInfo.getOsVersion(),
+                machineInfo.getMac());
     }
 
     public MachineInfo getMachineInfoByIpAndUserId(String ip, Integer userId) {

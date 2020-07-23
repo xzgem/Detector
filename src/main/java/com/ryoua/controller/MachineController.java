@@ -19,11 +19,20 @@ public class MachineController extends BaseController{
 
     private static final String DETECTOR_SYSTEMINFO = "detector:machineinfo";
 
-    @PostMapping(value = "/machine/register")
-    public Result getSystemInfoFromServer(@RequestBody MachineInfo machineInfo) {
+    @PostMapping(value = "/machine/register/{autoRegister}")
+    public Result getSystemInfoFromServer(@PathVariable("autoRegister") boolean autoRegister, @RequestBody MachineInfo machineInfo) {
         log.info(machineInfo.toString());
+        MachineInfo machineinfoByIp = machineInfoService.getMachineinfoByIp(machineInfo.getIp());
         redisUtil.set(DETECTOR_SYSTEMINFO + machineInfo.getMac(), gson.toJson(machineInfo));
-        MachineInfo machine = machineInfoService.getMachineInfoByIpAndUserId(machineInfo.getIp(), 1);
+
+        if (autoRegister && machineinfoByIp == null) {
+            boolean flag = machineInfoService.addMachine(machineInfo);
+            if (flag)
+                return Result.SUCCESS();
+            else
+                return Result.FAIL();
+        }
+
         return Result.SUCCESS();
     }
 

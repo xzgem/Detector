@@ -18,10 +18,8 @@ public class MachineInfo {
     private String ip;
     private String mac;
     private String host;
-    private String javaVersion;
     private String osName;
     private String osVersion;
-    private String username;
     private Object remark;
     private String updateTime;
     private int user;
