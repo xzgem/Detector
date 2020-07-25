@@ -36,5 +36,4 @@ public class BaseController {
     @Autowired
     ApiTestService apiTestService;
 
-
 }
