@@ -14,14 +14,32 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class MachineInfo {
-    private int id;
     private String ip;
-    private String mac;
     private String host;
+    private String oid;
+    private String mac;
+    private String networkDetail;
+
     private String osName;
-    private String osVersion;
-    private Object remark;
+    private String osDetail;
+
+    private long cpuCores;
+    private String cpuDetail;
+
+    private long memory;
+    private String memoryDetail;
+
+    private long disk;
+    private String diskDetail;
+
+    private String fileDetail;
     private String updateTime;
+    private boolean autoRegister;
+    private String remark;
     private int user;
     private int valid;
+
+    public boolean getAutoRegister() {
+        return autoRegister;
+    }
 }

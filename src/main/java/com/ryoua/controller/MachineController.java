@@ -3,6 +3,7 @@ package com.ryoua.controller;
 import com.github.pagehelper.PageInfo;
 import com.ryoua.model.MachineInfo;
 import com.ryoua.model.common.Result;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +18,20 @@ import java.util.*;
 @Slf4j
 public class MachineController extends BaseController{
 
-    private static final String DETECTOR_SYSTEMINFO = "detector:machineinfo";
 
-    @PostMapping(value = "/machine/register/{autoRegister}")
-    public Result getSystemInfoFromServer(@PathVariable("autoRegister") boolean autoRegister, @RequestBody MachineInfo machineInfo) {
+    @PostMapping(value = "/machine/register")
+    public Result getSystemInfoFromServer(@RequestBody MachineInfo machineInfo) {
+        boolean autoRegister = machineInfo.getAutoRegister();
         log.info(machineInfo.toString());
         MachineInfo machineinfoByIp = machineInfoService.getMachineinfoByIp(machineInfo.getIp());
         redisUtil.set(DETECTOR_SYSTEMINFO + machineInfo.getMac(), gson.toJson(machineInfo));
 
         if (autoRegister && machineinfoByIp == null) {
-            boolean flag = machineInfoService.addMachine(machineInfo);
-            if (flag)
-                return Result.SUCCESS();
-            else
-                return Result.FAIL();
+//            boolean flag = machineInfoService.addMachine(machineInfo);
+//            if (flag)
+//                return Result.SUCCESS();
+//            else
+//                return Result.FAIL();
         }
 
         return Result.SUCCESS();

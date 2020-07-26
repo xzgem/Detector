@@ -56,14 +56,14 @@ public class MachineInfoService {
         machineInfoMapper.deleteMachineByIds(deleteIds);
     }
 
-    public boolean addMachine(MachineInfo machineInfo) {
-        return machineInfoMapper.addMachineInfo(machineInfo.getUser(),
-                machineInfo.getIp(),
-                machineInfo.getHost(),
-                machineInfo.getOsName(),
-                machineInfo.getOsVersion(),
-                machineInfo.getMac());
-    }
+//    public boolean addMachine(MachineInfo machineInfo) {
+//        return machineInfoMapper.addMachineInfo(machineInfo.getUser(),
+//                machineInfo.getIp(),
+//                machineInfo.getHost(),
+//                machineInfo.getOsName(),
+//                machineInfo.getOsVersion(),
+//                machineInfo.getMac());
+//    }
 
     public MachineInfo getMachineInfoByIpAndUserId(String ip, Integer userId) {
         return machineInfoMapper.getMachineInfoByIpAndUserId(ip, userId);

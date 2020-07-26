@@ -15,6 +15,10 @@ import org.springframework.web.client.RestTemplate;
  * * @Date: 2020/7/22
  **/
 public class BaseController {
+    static final String DETECTOR_SYSTEMINFO = "detector:machineinfo:";
+
+    static final String DETECTOR_LOADINFO = "detector:loadinfo:";
+
     @Autowired
     Gson gson;
 
