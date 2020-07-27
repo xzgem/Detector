@@ -30,7 +30,7 @@ public class ApiTestService implements Runnable{
     }
 
     public void apiTest() {
-        for (int i = 0; i < apiTest.getLoops(); i++) {
+        for (int i = 0; i < 1000; i++) {
             long start = System.currentTimeMillis();
             restTemplate.getForObject(apiTest.getUrl(), String.class);
             long end = System.currentTimeMillis();

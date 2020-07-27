@@ -7,22 +7,15 @@ import lombok.ToString;
 
 /**
  * * @Author: RyouA
- * * @Date: 2020/7/22
+ * * @Date: 2020/7/27
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ApiTest {
-    private String url;
+public class Contact {
+    private int id;
+    private int user;
+    private String contact;
     private boolean valid;
-    private int interval;
-
-    public boolean getValid() {
-        return valid;
-    }
-
-    public void setValid(boolean valid) {
-        this.valid = valid;
-    }
 }

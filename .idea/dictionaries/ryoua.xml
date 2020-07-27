@@ -1,17 +1,23 @@
 <component name="ProjectDictionaryState">
   <dictionary name="ryoua">
     <words>
+      <w>apiinfo</w>
+      <w>datas</w>
+      <w>echarts</w>
       <w>encry</w>
       <w>gson</w>
       <w>hashpwd</w>
       <w>layui</w>
+      <w>loadinfo</w>
       <w>machineinfo</w>
       <w>nachineinfo</w>
       <w>reids</w>
       <w>ryou</w>
       <w>ryoua</w>
+      <w>stringlist</w>
       <w>systeminfo</w>
       <w>upbit</w>
+      <w>yray</w>
     </words>
   </dictionary>
 </component>

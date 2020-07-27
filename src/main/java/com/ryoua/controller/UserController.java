@@ -1,15 +1,11 @@
 package com.ryoua.controller;
 
-import com.google.gson.Gson;
 import com.ryoua.config.JWTIgnore;
 import com.ryoua.model.User;
-import com.ryoua.model.common.Audience;
 import com.ryoua.model.common.Result;
 import com.ryoua.model.common.ResultCode;
-import com.ryoua.service.UserService;
 import com.ryoua.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,13 +38,17 @@ public class UserController extends BaseController{
     @ResponseBody
     @JWTIgnore
     public Result register(@RequestBody User user) {
-        User user1 = userService.getUserByUserName(user.getUsername());
-        if (user1 != null)
+        if (userService.isUserExist(user.getUsername()))
             return new Result(ResultCode.USER_IS_EXIST);
         boolean register = userService.register(user.getUsername(), user.getPassword());
         if (register)
             return Result.SUCCESS();
         else
             return Result.FAIL();
+    }
+
+    @PostMapping("/contact")
+    public Result addContact() {
+        return Result.SUCCESS();
     }
 }

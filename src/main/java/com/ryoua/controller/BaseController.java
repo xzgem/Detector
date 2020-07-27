@@ -8,7 +8,6 @@ import com.ryoua.service.UserService;
 import com.ryoua.utils.RedisUtil;
 import com.ryoua.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * * @Author: RyouA
@@ -18,6 +17,8 @@ public class BaseController {
     static final String DETECTOR_SYSTEMINFO = "detector:machineinfo:";
 
     static final String DETECTOR_LOADINFO = "detector:loadinfo:";
+
+    static final String DETECTOR_APIINFO = "detector:apiinfo:";
 
     @Autowired
     Gson gson;

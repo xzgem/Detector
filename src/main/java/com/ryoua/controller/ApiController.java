@@ -20,8 +20,7 @@ public class ApiController extends BaseController {
         List<Long> list = new ArrayList<>();
         apiTestService.setApiTest(apiTest);
         apiTestService.setList(list);
-        for (int i = 0; i < apiTest.getThreads(); i++)
-            new Thread(apiTestService).start();
+        new Thread(apiTestService).start();
         return Result.SUCCESS();
     }
 }

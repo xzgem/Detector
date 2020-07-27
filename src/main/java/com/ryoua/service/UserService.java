@@ -2,12 +2,8 @@ package com.ryoua.service;
 
 import com.ryoua.mapper.UserMapper;
 import com.ryoua.model.User;
-import com.ryoua.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
-
-import static java.lang.System.currentTimeMillis;
 
 /**
  * * @Author: RyouA
@@ -29,14 +25,11 @@ public class UserService {
         return password.equals(user.getPassword());
     }
 
-
     /**
      * 注册
      */
     public boolean register(String username ,String password) {
-        String salt = StringUtil.getRandomSalt();
-        boolean flag = userMapper.addUser(StringUtil.getUuid(),username, password, salt);
-        return true;
+        return userMapper.addUser(username, password);
     }
 
     /**
@@ -46,7 +39,7 @@ public class UserService {
         return userMapper.getUserByUserName(userName);
     }
 
-    public User getPhone(String phone) {
-        return userMapper.getUserByPhone(phone);
+    public boolean isUserExist(String userName) {
+        return getUserByUserName(userName) == null;
     }
 }
