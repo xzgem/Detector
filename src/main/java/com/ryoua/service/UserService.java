@@ -1,9 +1,12 @@
 package com.ryoua.service;
 
 import com.ryoua.mapper.UserMapper;
+import com.ryoua.model.Contact;
 import com.ryoua.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * * @Author: RyouA
@@ -17,7 +20,7 @@ public class UserService {
     /**
      * 登录
      */
-    public boolean login(String username ,String password) {
+    public Boolean login(String username ,String password) {
         User user = userMapper.getUserByUserName(username);
         if (user == null) {
             return false;
@@ -28,7 +31,7 @@ public class UserService {
     /**
      * 注册
      */
-    public boolean register(String username ,String password) {
+    public Boolean register(String username ,String password) {
         return userMapper.addUser(username, password);
     }
 
@@ -39,7 +42,26 @@ public class UserService {
         return userMapper.getUserByUserName(userName);
     }
 
-    public boolean isUserExist(String userName) {
+    public Boolean isUserExist(String userName) {
         return getUserByUserName(userName) == null;
+    }
+
+
+
+
+    public Boolean deleteUserContact(Integer id) {
+        return userMapper.deleteUserContact(id);
+    }
+
+    public Boolean updateUserContact(Integer id, String contact, Integer type) {
+        return userMapper.updateUserContact(id, contact, type);
+    }
+
+    public Boolean addUserContact(Integer user, String contact, Integer type) {
+        return userMapper.addUserContact(user, contact, type);
+    }
+
+    public List<Contact> getContactByUser(Integer user) {
+        return userMapper.getContactByUser(user);
     }
 }

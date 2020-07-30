@@ -1,27 +1,27 @@
 package com.ryoua.controller;
 
 import com.ryoua.config.JWTIgnore;
+import com.ryoua.handler.UserLocal;
+import com.ryoua.model.Contact;
 import com.ryoua.model.User;
 import com.ryoua.model.common.Result;
 import com.ryoua.model.common.ResultCode;
 import com.ryoua.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * * @Author: RyouA
  * * @Date: 2020/7/19
  **/
 @Slf4j
-@Controller
+@RestController
 public class UserController extends BaseController{
     @PostMapping("/login")
-    @ResponseBody
     @JWTIgnore
     public Result login(HttpServletResponse response, @RequestBody User user) {
         User user1 = userService.getUserByUserName(user.getUsername());
@@ -35,7 +35,6 @@ public class UserController extends BaseController{
     }
 
     @PostMapping("/register")
-    @ResponseBody
     @JWTIgnore
     public Result register(@RequestBody User user) {
         if (userService.isUserExist(user.getUsername()))
@@ -47,8 +46,36 @@ public class UserController extends BaseController{
             return Result.FAIL();
     }
 
-    @PostMapping("/contact")
+    @GetMapping("/contact")
     public Result addContact() {
-        return Result.SUCCESS();
+        Integer uid = 1;
+        List<Contact> list = userService.getContactByUser(uid);;
+        for (Contact contact : list) {
+            if (contact.getType() == 0)
+                contact.setTypeStr("手机");
+            else
+                contact.setTypeStr("邮箱");
+        }
+        return Result.SUCCESS(list);
     }
+
+    @PutMapping("/contact")
+    public Result updateContact(@RequestBody Contact contact) {
+        Boolean flag = userService.updateUserContact(contact.getId(), contact.getContact(), contact.getType());
+        return resultByFlag(flag);
+    }
+
+    @DeleteMapping("/contact/{id}")
+    public Result deleteContact(@PathVariable("id") Integer id) {
+        Boolean flag = userService.deleteUserContact(id);
+        return resultByFlag(flag);
+    }
+
+    @PatchMapping("/contact")
+    public Result addContact(@RequestBody Contact contact) {
+        Integer uid = UserLocal.getCurrentUserId();
+        Boolean flag = userService.addUserContact(uid, contact.getContact(), contact.getType());
+        return resultByFlag(flag);
+    }
+
 }

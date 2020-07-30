@@ -29,14 +29,6 @@ public class WebConfig {
      * 跨域支持
      *
      */
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**")
-//                .allowedOrigins("*")
-//                .allowCredentials(true)
-//                .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH", "OPTIONS", "HEAD")
-//                .maxAge(3600 * 24)
-//                .allowedHeaders("*");
-//    }
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

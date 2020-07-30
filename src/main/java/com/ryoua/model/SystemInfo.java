@@ -13,7 +13,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class MachineInfo {
+public class SystemInfo {
     private String ip;
     private String host;
     private String oid;

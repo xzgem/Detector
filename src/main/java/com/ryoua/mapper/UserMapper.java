@@ -15,16 +15,26 @@ public interface UserMapper {
 
     @Select(value = "select * from auth_user where username = #{username} and valid = 1")
     User getUserByUserName(String username);
+
     @Select(value = "select * from auth_user where phone = #{phone} and valid = 1")
     User getUserByPhone(String phone);
-    @Select(value = "select * from contact where user = #{user}")
-    List<Contact> getContactByUser(Integer user);
-
-    boolean updateContactByUser();
 
     @Insert(value = "insert into auth_user (username, password, update_time) VALUES \n" +
             "(#{username}, #{password}, current_timestamp)")
-    boolean addUser(@Param("username") String username, @Param("password") String password);
-    @Insert(value = "insert into contact (user, contact) values (#{user}, #{contact})")
-    boolean addUserContact(@Param("user") int user, @Param("contact") String contact);
+    Boolean addUser(@Param("username") String username, @Param("password") String password);
+
+
+
+
+    @Insert(value = "insert into contact (user, contact, type) values (#{user}, #{contact}, #{type})")
+    Boolean addUserContact(@Param("user") Integer user, @Param("contact") String contact, @Param("type") Integer type);
+
+    @Select(value = "select * from contact where user = #{user} and valid = 1")
+    List<Contact> getContactByUser(Integer user);
+
+    @Delete(value = "update  contact set valid = 0 where id = #{id}")
+    Boolean deleteUserContact(Integer id);
+
+    @Update(value = "update contact set contact = #{contact}, type = #{type} where id = #{id}")
+    Boolean updateUserContact(@Param("id") Integer id, @Param("contact") String contact, @Param("type") Integer type);
 }

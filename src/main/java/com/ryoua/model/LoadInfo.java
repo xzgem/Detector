@@ -16,12 +16,15 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class LoadInfo {
-    private String oid;
+    private String mid;
+
+    private String memoryUnit;
     private double memoryAll;
     private double memoryUse;
+
+    private String memorySwapUnit;
     private double memorySwapAll;
     private double memorySwapUse;
-    private String memoryUnit;
 
     private double cpuLoad;
     private String updateTime;
