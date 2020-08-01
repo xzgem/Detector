@@ -17,6 +17,7 @@ import java.util.List;
 @ToString
 public class SystemInfo {
     private String id;
+    private String mid;
     private String ip;
     private String host;
 

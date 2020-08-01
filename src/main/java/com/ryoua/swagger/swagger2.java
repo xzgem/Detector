@@ -20,7 +20,7 @@ public class swagger2 {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.gem.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.ryoua.controller"))
                 .paths(PathSelectors.any())
                 .build().apiInfo(new ApiInfoBuilder()
                         .title("监控项目Swagger接口文档")

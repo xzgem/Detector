@@ -20,9 +20,9 @@ public class SystemInfoService {
     @Autowired
     private SystemInfoMapper systemInfoMapper;
 
-    public PageInfo<SystemInfo> getAllMachineInfoByUserName(String username, int page, int limit) {
+    public PageInfo<SystemInfo> findAllMachineInfoByUserName(String username, int page, int limit) {
         PageHelper.startPage(page, limit);
-        PageInfo<SystemInfo> pageInfo = new PageInfo<>(systemInfoMapper.getAllMachineInfoByUserName(username));
+        PageInfo<SystemInfo> pageInfo = new PageInfo<>(systemInfoMapper.findAllMachineInfoByUserName(username));
         return pageInfo;
     }
 
@@ -30,16 +30,15 @@ public class SystemInfoService {
         return systemInfoMapper.getMachineinfoByIp(ip);
     }
 
-    public PageInfo<SystemInfo> searchMachineInfoByIpAndMac(String ip, String mac, int page, int limit) {
+    public PageInfo<SystemInfo> findMachineInfoByIp(String ip, int page, int limit) {
         PageHelper.startPage(page, limit);
         ip = StringUtil.checkProperties(ip);
-        mac = StringUtil.checkProperties(mac);
-        PageInfo<SystemInfo> pageInfo = new PageInfo<>(systemInfoMapper.searchMachineInfoByIpAndMac("%" + ip + "%", "%" + mac + "%"));
+        PageInfo<SystemInfo> pageInfo = new PageInfo<>(systemInfoMapper.findMachineInfoByIp("%" + ip + "%"));
         return pageInfo;
     }
 
-    public SystemInfo getMachineInfoById(Integer id) {
-        return systemInfoMapper.getMachineInfoById(id);
+    public SystemInfo findMachineInfoById(Integer id) {
+        return systemInfoMapper.findMachineInfoById(id);
     }
 
     public boolean updateMachineInfoRemark(Integer id, String remark) {

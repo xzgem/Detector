@@ -12,10 +12,10 @@ import java.util.List;
 @Mapper
 public interface SystemInfoMapper {
     @Select(value = "select * from sys_machine where valid = 1")
-    List<SystemInfo> getAllMachineInfoByUserName(String username);
+    List<SystemInfo> findAllMachineInfoByUserName(String username);
 
-    @Select(value = "select * from sys_machine where ip like #{ip} and mac like #{mac} and valid = 1")
-    List<SystemInfo> searchMachineInfoByIpAndMac(@Param("ip") String ip, @Param("mac") String mac);
+    @Select(value = "select * from sys_machine where ip like #{ip} and valid = 1")
+    List<SystemInfo> findMachineInfoByIp(@Param("ip") String ip);
 
     @Select(value = "select * from sys_machine where ip = #{ip} and valid = 1")
     SystemInfo getMachineinfoByIp(String ip);
@@ -33,7 +33,7 @@ public interface SystemInfoMapper {
     SystemInfo getMachineInfoByIpAndUserId(@Param("ip") String ip, @Param("userId") Integer userId);
 
     @Select(value = "select * from sys_machine where id = #{id} and valid = 1")
-    SystemInfo getMachineInfoById(Integer id);
+    SystemInfo findMachineInfoById(Integer id);
 
     @Insert(value = "insert into sys_machine (user, ip, host, os_name, os_version, mac) VALUES" +
             "(user, ip, host, os_name, os_version, mac)")

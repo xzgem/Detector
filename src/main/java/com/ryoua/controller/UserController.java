@@ -76,6 +76,7 @@ public class UserController extends BaseController {
     @PutMapping("/contact")
     @ApiOperation(value = "更新手机/邮箱", notes = "更新手机/邮箱", tags = "contact", httpMethod = "PUT")
     @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "Integer"),
             @ApiImplicitParam(name = "contact", value = "手机/邮箱", required = true, dataType = "String"),
             @ApiImplicitParam(name = "type", value = "手机或邮箱对应的type", required = true, dataType = "Integer"),
     })
@@ -94,7 +95,12 @@ public class UserController extends BaseController {
         return resultByFlag(flag);
     }
 
-    @PatchMapping("/contact")
+    @PostMapping("/contact")
+    @ApiOperation(value = "添加手机/邮箱", notes = "添加手机/邮箱", tags = "contact", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "contact", value = "手机/邮箱", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "type", value = "手机或邮箱对应的type", required = true, dataType = "Integer"),
+    })
     public Result insertContact(@RequestBody Contact contact) {
         Integer uid = UserLocal.getCurrentUserId();
         Boolean flag = userService.addUserContact(uid, contact.getContact(), contact.getType());
