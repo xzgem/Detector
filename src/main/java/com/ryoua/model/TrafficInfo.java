@@ -5,28 +5,21 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
-
 /**
  * * @Author: RyouA
- * * @Date: 2020/7/26
+ * * @Date: 2020/8/1
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LoadInfo {
+public class TrafficInfo {
     private String mid;
-
-    private String memoryUnit;
-    private Double memoryAll;
-    private Double memoryUse;
-
-    private String memorySwapUnit;
-    private Double memorySwapAll;
-    private Double memorySwapUse;
-
-    private Double cpuLoad;
+    private Double packets;
+    private Double speed;
+    private String speedUnit;
+    private Double traffic;
+    private String trafficUnit;
     private String updateTime;
     private Long updateTimeMills;
 }

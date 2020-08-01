@@ -1,6 +1,9 @@
 package com.ryoua.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 
@@ -9,6 +12,9 @@ import java.util.Date;
  * * @Date: 2020/7/19
  **/
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class User {
     private int id;
     private String username;

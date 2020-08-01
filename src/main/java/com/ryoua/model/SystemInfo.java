@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 /**
  * * @Author: RyouA
  * * @Date: 2020/7/18
@@ -14,32 +16,27 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class SystemInfo {
+    private String id;
     private String ip;
     private String host;
-    private String oid;
-    private String mac;
-    private String networkDetail;
 
     private String osName;
-    private String osDetail;
 
-    private long cpuCores;
+    private Double cpuCores;
     private String cpuDetail;
 
-    private long memory;
-    private String memoryDetail;
+    private Double memory;
+    private String memoryUnit;
 
-    private long disk;
-    private String diskDetail;
+    private List<DiskInfo> diskInfos;
 
     private String fileDetail;
     private String updateTime;
-    private boolean autoRegister;
+    private Long updateTimeMills;
+
+    private Integer autoRegister;
     private String remark;
     private int user;
     private int valid;
 
-    public boolean getAutoRegister() {
-        return autoRegister;
-    }
 }

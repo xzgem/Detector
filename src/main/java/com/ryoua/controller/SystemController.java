@@ -20,12 +20,12 @@ public class SystemController extends BaseController{
 
     @PostMapping(value = "/machine/register")
     public Result getSystemInfoFromServer(@RequestBody SystemInfo systemInfo) {
-        boolean autoRegister = systemInfo.getAutoRegister();
+        Integer autoRegister = systemInfo.getAutoRegister();
         log.info(systemInfo.toString());
         SystemInfo machineinfoByIp = systemInfoService.getMachineinfoByIp(systemInfo.getIp());
-        redisUtil.set(DETECTOR_SYSTEMINFO + systemInfo.getMac(), gson.toJson(systemInfo));
+        redisUtil.set(DETECTOR_SYSTEMINFO + systemInfo.getId(), gson.toJson(systemInfo));
 
-        if (autoRegister && machineinfoByIp == null) {
+        if (autoRegister == 1 && machineinfoByIp == null) {
 //            boolean flag = machineInfoService.addMachine(machineInfo);
 //            if (flag)
 //                return Result.SUCCESS();

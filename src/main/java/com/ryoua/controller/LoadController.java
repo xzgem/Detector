@@ -20,8 +20,8 @@ public class LoadController extends BaseController{
     @PostMapping(value = "/loadInfo/register")
     public Result getLoadInfoFromServer( @RequestBody LoadInfo loadInfo) {
         log.info(loadInfo.toString());
-        redisUtil.zAdd(DETECTOR_LOADINFO + loadInfo.getOid(), gson.toJson(loadInfo), loadInfo.getUpdateTimeMills());
-        redisUtil.expire(DETECTOR_LOADINFO + loadInfo.getOid(), 1, TimeUnit.DAYS);
+        redisUtil.zAdd(DETECTOR_LOADINFO + loadInfo.getMid(), gson.toJson(loadInfo), loadInfo.getUpdateTimeMills());
+        redisUtil.expire(DETECTOR_LOADINFO + loadInfo.getMid(), 1, TimeUnit.DAYS);
         return Result.SUCCESS();
     }
 
