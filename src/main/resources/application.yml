@@ -5,13 +5,13 @@ spring:
     name: auth-server
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/detector?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://111.229.44.186:1521/detector?useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: root
+    password: 824780260
 
   redis:
-    host: 127.0.0.1
-    port: 6379
+    host: 49.234.193.41
+    port: 7778
     timeout: 3000
     lettuce:
       pool:

@@ -20,7 +20,7 @@ public class WebConfig extends WebMvcConfigurationSupport {
      * 添加拦截器
      */
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new HttpInterceptor()).addPathPatterns("/**");
+//        registry.addInterceptor(new HttpInterceptor()).addPathPatterns("/**");
     }
 
     /**

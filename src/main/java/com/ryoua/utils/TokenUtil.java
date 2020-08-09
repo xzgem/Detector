@@ -62,7 +62,7 @@ public class TokenUtil {
      * @param audience
      * @return
      */
-    public static String createJWT(String userId, String username, Audience audience) {
+    public static String createJWT(String userId, String username, Audience audience)   {
         try {
             // 使用HS256加密算法
             SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
