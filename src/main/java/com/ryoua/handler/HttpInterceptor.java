@@ -12,7 +12,6 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -25,7 +24,6 @@ import javax.servlet.http.HttpServletResponse;
  * * @Date: 2020/7/19
  **/
 @Slf4j
-@Component
 public class HttpInterceptor extends HandlerInterceptorAdapter {
 
     @Autowired

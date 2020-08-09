@@ -8,21 +8,19 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 /**
  * * @Author: RyouA
  * * @Date: 2020/7/19
  **/
 @Configuration
-public class WebConfig {
-    @Autowired
-    private HttpInterceptor interceptor;
-
+public class WebConfig extends WebMvcConfigurationSupport {
     /**
      * 添加拦截器
      */
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(interceptor);
+        registry.addInterceptor(new HttpInterceptor()).addPathPatterns("/**");
     }
 
     /**
