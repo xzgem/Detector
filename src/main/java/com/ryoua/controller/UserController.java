@@ -48,13 +48,15 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
     })
     public Result register(@RequestBody User user) {
-        if (userService.isUserExist(user.getUsername()))
+        if (userService.isUserExist(user.getUsername())) {
             return new Result(ResultCode.USER_IS_EXIST);
+        }
         boolean register = userService.register(user.getUsername(), user.getPassword());
-        if (register)
+        if (register) {
             return Result.SUCCESS();
-        else
+        } else {
             return Result.FAIL();
+        }
     }
 
     @GetMapping("/contact")

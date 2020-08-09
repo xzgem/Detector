@@ -28,7 +28,7 @@ public class TokenUtil {
 
     private static Logger log = LoggerFactory.getLogger(TokenUtil.class);
 
-    public static final String AUTH_HEADER_KEY = "Auth";
+    public static final String AUTH_HEADER_KEY = "Authorization";
 
     public static final String TOKEN_PREFIX = "Bearer ";
 

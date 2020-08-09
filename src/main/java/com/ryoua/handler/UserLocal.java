@@ -4,33 +4,30 @@ import com.ryoua.model.User;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
+/**  登录保存/获取用户信息
  * * @Author: RyouA
  * * @Date: 2020/7/19
  **/
 public class UserLocal {
-    private static final ThreadLocal<Integer> userLocal = new ThreadLocal<>();
+    private static final ThreadLocal<Integer> userIdLocal = new ThreadLocal<>();
 
-    private static final ThreadLocal<HttpServletRequest> requestHolder = new ThreadLocal<>();
+    private static final ThreadLocal<User> userLocal = new ThreadLocal<>();
 
-    public static void add(Integer userId){
-        userLocal.set(userId);
+    public static void setUserId(Integer userId){
+        userIdLocal.set(userId);
     }
 
-    public static void add(HttpServletRequest request){
-        requestHolder.set(request);
+    public static void setUser(User user){
+        userLocal.set(user);
     }
+
 
     public static Integer getCurrentUserId(){
+        return userIdLocal.get();
+    }
+
+    public static User getCurrentUser(User user){
         return userLocal.get();
     }
 
-    public static HttpServletRequest getCurrentRequest(){
-        return requestHolder.get();
-    }
-
-    public static void remove(){
-        userLocal.remove();
-        requestHolder.remove();
-    }
 }

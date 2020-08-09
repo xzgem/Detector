@@ -62,8 +62,7 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
 
         // 验证token是否有效--无效已做异常抛出，由全局异常处理后返回对应信息
         Claims claims = TokenUtil.parseJWT(token, audience.getBase64Secret());
-        UserLocal.add(Integer.parseInt(TokenUtil.getUserId(token, audience.getBase64Secret())));
-        UserLocal.add(request);
+        UserLocal.setUserId(Integer.parseInt(TokenUtil.getUserId(token, audience.getBase64Secret())));
         return true;
     }
 }
