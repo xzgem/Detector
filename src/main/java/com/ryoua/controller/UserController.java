@@ -102,7 +102,7 @@ public class UserController extends BaseController {
             @ApiImplicitParam(name = "type", value = "手机或邮箱对应的type", required = true, dataType = "Integer"),
     })
     public Result insertContact(@RequestBody Contact contact) {
-        Integer uid = UserLocal.getCurrentUserId();
+        Integer uid = 1;
         Boolean flag = userService.addUserContact(uid, contact.getContact(), contact.getType());
         return resultByFlag(flag);
     }
