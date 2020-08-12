@@ -15,8 +15,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ApiTestResult {
-    public List<Integer> pings;
-    public Integer median;
+public class Api {
+    private Integer id;
 
+    private String url;
+    private String method;
+    private String status;
+
+    private Integer user;
+    private Integer valid;
+    private String updateTime;
+    private String createTime;
 }

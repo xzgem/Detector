@@ -1,5 +1,7 @@
 package com.ryoua.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.ryoua.mapper.ContactMapper;
 import com.ryoua.mapper.UserMapper;
 import com.ryoua.model.Contact;
 import com.ryoua.model.User;
@@ -13,15 +15,15 @@ import java.util.List;
  * * @Date: 2020/7/19
  **/
 @Service
-public class UserService {
-    @Autowired
-    private UserMapper userMapper;
+public class UserService extends BaseService {
 
     /**
      * 登录
      */
     public Boolean login(String username ,String password) {
-        User user = userMapper.getUserByUserName(username);
+        User user = userMapper.selectOne(new QueryWrapper<User>().
+                eq("username", username).
+                eq("password", password));
         if (user == null) {
             return false;
         }
@@ -31,37 +33,26 @@ public class UserService {
     /**
      * 注册
      */
-    public Boolean register(String username ,String password) {
-        return userMapper.addUser(username, password);
+    public Integer register(String username ,String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        return userMapper.insert(user);
     }
 
     /**
-     * 校验用户名是否存在
+     * 根据用户名获取用户
      */
-    public User getUserByUserName(String userName) {
-        return userMapper.getUserByUserName(userName);
+    public User findUserByUserName(String userName) {
+        return userMapper.selectOne(new QueryWrapper<User>().
+                eq("username", userName));
     }
 
+    /**
+     * 检测用户是否存在
+     */
     public Boolean isUserExist(String userName) {
-        return getUserByUserName(userName) == null;
+        return findUserByUserName(userName) == null;
     }
 
-
-
-
-    public Boolean deleteUserContact(Integer id) {
-        return userMapper.deleteUserContact(id);
-    }
-
-    public Boolean updateUserContact(Integer id, String contact, Integer type) {
-        return userMapper.updateUserContact(id, contact, type);
-    }
-
-    public Boolean addUserContact(Integer user, String contact, Integer type) {
-        return userMapper.addUserContact(user, contact, type);
-    }
-
-    public List<Contact> getContactByUser(Integer user) {
-        return userMapper.getContactByUser(user);
-    }
 }

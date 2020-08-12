@@ -1,5 +1,7 @@
 package com.ryoua.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 public class SystemInfo {
+    @TableId(type = IdType.AUTO)
     private String id;
     private String mid;
 
@@ -40,5 +43,8 @@ public class SystemInfo {
     private Integer autoRegister;
     private String remark;
     private Integer user;
+    // 0:失效    1:有效
     private Integer valid;
+    // 0:下线    1:在线
+    private Integer status;
 }
