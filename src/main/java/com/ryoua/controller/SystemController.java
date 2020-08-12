@@ -45,8 +45,8 @@ public class SystemController extends BaseController{
     @GetMapping("/machineInfo")
     @ApiOperation(value = "获取机器信息", notes = "获取全部机器信息", tags = "machineInfo", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "page", value = "页数", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "limit", value = "一页数量", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "page", value = "页数", required = true, dataType = "integer"),
+            @ApiImplicitParam(name = "limit", value = "一页数量", required = true, dataType = "integer"),
     })
     public Result findAllMachineInfoByUserName(@RequestParam(value = "page") int page, @RequestParam(value = "limit") int limit) {
         PageInfo<SystemInfo> list = systemInfoService.findAllMachineInfoByUserName("123", page, limit);
@@ -56,7 +56,7 @@ public class SystemController extends BaseController{
     @GetMapping("/machineInfo/{id}")
     @ApiOperation(value = "查找机器信息", notes = "根据ID查找机器信息", tags = "machineInfo", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "机器的id", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "id", value = "机器的id", required = true, dataType = "integer"),
     })
     public Result findMachineInfoById(@PathVariable("id") Integer id) {
         SystemInfo systemInfo = systemInfoService.findMachineInfoById(id);
@@ -66,9 +66,9 @@ public class SystemController extends BaseController{
     @GetMapping("/machineInfo/ip/{ip}")
     @ApiOperation(value = "查找机器信息", notes = "根据IP查找机器信息", tags = "machineInfo", httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "ip", value = "机器的IP", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "page", value = "页数", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "limit", value = "一页数量", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "ip", value = "机器的IP", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "page", value = "页数", required = true, dataType = "integer"),
+            @ApiImplicitParam(name = "limit", value = "一页数量", required = true, dataType = "integer"),
     })
     public Result findMachineInfoByIp(@PathVariable(value = "ip", required = false) String ip,
                                               @RequestParam(value = "page") int page,
@@ -100,7 +100,7 @@ public class SystemController extends BaseController{
     @DeleteMapping("/machineInfo/{id}")
     @ApiOperation(value = "删除机器信息", notes = "根据Id删除机器信息", tags = "machineInfo", httpMethod = "DELETE")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "机器的id", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "id", value = "机器的id", required = true, dataType = "integer"),
     })
     public Result deleteMachineById(@PathVariable("id") Integer id) {
         systemInfoService.deleteMachineById(id);
@@ -110,8 +110,8 @@ public class SystemController extends BaseController{
     @DeleteMapping("/machineInfo")
     @ApiOperation(value = "删除机器信息", notes = "根据Id数组删除机器信息", tags = "machineInfo", httpMethod = "DELETE")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "delete", value = "Map的key", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "num", value = "Map的value", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "delete", value = "Map的key", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "num", value = "Map的value", required = true, dataType = "integer"),
     })
     public Result deleteMachineByIds(@RequestBody Map<String, Object> delete) {
         systemInfoService.deleteMachineByIds((List) delete.get("delete"));

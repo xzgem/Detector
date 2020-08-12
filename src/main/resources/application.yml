@@ -41,5 +41,19 @@ mybatis:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+      # 需要过滤的 get 请求
+      get:
+      # 需要过滤的请求，不限方法
+      pattern:
+        - "/swagger-ui.html/**"
+        - "/swagger-resources/**"
+
+
+
 
 

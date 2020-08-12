@@ -15,9 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
  * * @Date: 2020/7/22
  **/
 public class BaseController {
+
+    static final String DETECTOR_APIINFO = "detector:apiinfo:";
     static final String DETECTOR_SYSTEMINFO = "detector:machineinfo:";
     static final String DETECTOR_LOADINFO = "detector:loadinfo:";
-    static final String DETECTOR_APIINFO = "detector:apiinfo:";
 
     @Autowired
     Gson gson;
@@ -35,9 +36,10 @@ public class BaseController {
     ApiTestService apiTestService;
 
     protected Result resultByFlag(Boolean flag) {
-        if (flag)
+        if (flag) {
             return Result.SUCCESS();
-        else
+        } else {
             return Result.FAIL();
+        }
     }
 }

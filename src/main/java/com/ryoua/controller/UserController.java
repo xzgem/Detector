@@ -26,8 +26,8 @@ public class UserController extends BaseController {
     @JWTIgnore
     @ApiOperation(value = "登录", notes = "登录", tags = "user", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "账号", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "username", value = "账号", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "string"),
     })
     public Result login(HttpServletResponse response, @RequestBody User user) {
         User user1 = userService.getUserByUserName(user.getUsername());
@@ -44,8 +44,8 @@ public class UserController extends BaseController {
     @JWTIgnore
     @ApiOperation(value = "注册", notes = "注册", tags = "user", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "username", value = "账号", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "username", value = "账号", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "password", value = "密码", required = true, dataType = "string"),
     })
     public Result register(@RequestBody User user) {
         if (userService.isUserExist(user.getUsername())) {
@@ -78,9 +78,9 @@ public class UserController extends BaseController {
     @PutMapping("/contact")
     @ApiOperation(value = "更新手机/邮箱", notes = "更新手机/邮箱", tags = "contact", httpMethod = "PUT")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "contact", value = "手机/邮箱", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "type", value = "手机或邮箱对应的type", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "integer"),
+            @ApiImplicitParam(name = "contact", value = "手机/邮箱", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "type", value = "手机或邮箱对应的type", required = true, dataType = "integer"),
     })
     public Result updateContact(@RequestBody Contact contact) {
         Boolean flag = userService.updateUserContact(contact.getId(), contact.getContact(), contact.getType());
@@ -90,7 +90,7 @@ public class UserController extends BaseController {
     @DeleteMapping("/contact/{id}")
     @ApiOperation(value = "删除手机/邮箱", notes = "删除手机/邮箱", tags = "contact", httpMethod = "DELETE")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "手机/邮箱的Id", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "id", value = "手机/邮箱的Id", required = true, dataType = "integer"),
     })
     public Result deleteContact(@PathVariable("id") Integer id) {
         Boolean flag = userService.deleteUserContact(id);
@@ -100,8 +100,8 @@ public class UserController extends BaseController {
     @PostMapping("/contact")
     @ApiOperation(value = "添加手机/邮箱", notes = "添加手机/邮箱", tags = "contact", httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "contact", value = "手机/邮箱", required = true, dataType = "String"),
-            @ApiImplicitParam(name = "type", value = "手机或邮箱对应的type", required = true, dataType = "Integer"),
+            @ApiImplicitParam(name = "contact", value = "手机/邮箱", required = true, dataType = "string"),
+            @ApiImplicitParam(name = "type", value = "手机或邮箱对应的type", required = true, dataType = "integer"),
     })
     public Result insertContact(@RequestBody Contact contact) {
         Integer uid = 1;
