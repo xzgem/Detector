@@ -7,19 +7,23 @@ import lombok.ToString;
 
 /**
  * * @Author: RyouA
- * * @Date: 2020/8/1
+ * * @Date: 2020/8/12
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class TrafficInfo {
+public class MemoryLoad {
+    private Integer id;
     private String mid;
-    private Double packets;
-    private Double speed;
-    private String speedUnit;
-    private Double traffic;
-    private String trafficUnit;
+
+    private String memorySize;
+    private String memoryUse;
+    private String memoryLess;
+    private String memoryUsage;
+
     private String updateTime;
     private Long updateTimeMills;
+
+    private Integer valid;
 }

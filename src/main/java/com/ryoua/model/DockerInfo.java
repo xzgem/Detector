@@ -7,22 +7,23 @@ import lombok.ToString;
 
 /**
  * * @Author: RyouA
- * * @Date: 2020/8/1
+ * * @Date: 2020/8/12
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class DiskInfo {
+public class DockerInfo {
     private Integer id;
     private String mid;
 
-    private String diskCapacity;
-    private String diskUsage;
-    private String diskName;
+    private String dockerName;
+    private String dockerId;
+    private String dockerCpuUsage;
+    private String dockerMemoryUsage;
 
     private String updateTime;
     private Long updateTimeMills;
+
     private Integer valid;
 }
-

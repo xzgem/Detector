@@ -18,26 +18,27 @@ import java.util.List;
 public class SystemInfo {
     private String id;
     private String mid;
+
     private String ip;
     private String host;
 
     private String osName;
 
-    private Double cpuCores;
+    private String networkDetail;
+
+    private Integer cpuCores;
     private String cpuDetail;
 
-    private Double memory;
-    private String memoryUnit;
+    private String memorySize;
 
+    private String fileSystemDetail;
     private List<DiskInfo> diskInfos;
 
-    private String fileDetail;
     private String updateTime;
     private Long updateTimeMills;
 
     private Integer autoRegister;
     private String remark;
-    private int user;
-    private int valid;
-
+    private Integer user;
+    private Integer valid;
 }

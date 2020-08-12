@@ -13,16 +13,17 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class DiskInfo {
+public class TrafficLoad {
     private Integer id;
     private String mid;
 
-    private String diskCapacity;
-    private String diskUsage;
-    private String diskName;
+    private Long sendPackets;
+    private Long receivePackets;
+
+    private String downLoadSpeed;
+    private String uploadSpeed;
 
     private String updateTime;
     private Long updateTimeMills;
     private Integer valid;
 }
-

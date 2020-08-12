@@ -5,28 +5,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * * @Author: RyouA
- * * @Date: 2020/7/26
+ * * @Date: 2020/8/12
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 public class LoadInfo {
+    private Integer id;
     private String mid;
 
-    private String memoryUnit;
-    private Double memoryAll;
-    private Double memoryUse;
+    private CpuLoad cpuLoad;
+    private MemoryLoad memoryLoad;
+    private List<ProcessLoad> processLoads;
+    private DockerInfo dockerInfo;
+    private TrafficLoad trafficLoad;
 
-    private String memorySwapUnit;
-    private Double memorySwapAll;
-    private Double memorySwapUse;
-
-    private Double cpuLoad;
     private String updateTime;
     private Long updateTimeMills;
+
+    private Integer valid;
 }
+

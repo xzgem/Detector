@@ -1,6 +1,5 @@
 package com.ryoua.controller;
 
-import com.ryoua.model.LoadInfo;
 import com.ryoua.model.common.Result;
 import com.ryoua.model.echarts.EchartsData;
 import com.ryoua.model.echarts.EchartsResult;

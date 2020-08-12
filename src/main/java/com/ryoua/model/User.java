@@ -16,12 +16,12 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class User {
-    private int id;
+    private Integer id;
     private String username;
     private String password;
     private String phone;
     private String email;
     private Date createTime;
     private Date updateTime;
-    private int valid;
+    private Integer valid;
 }

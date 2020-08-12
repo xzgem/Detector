@@ -14,10 +14,11 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 public class Contact {
-    private int id;
-    private int user;
+    private Integer id;
+    private Integer user;
     private String contact;
-    private int valid;
-    private int type;
     private String typeStr;
+    private String updateTime;
+    private Long updateTimeMills;
+    private Integer valid;
 }
