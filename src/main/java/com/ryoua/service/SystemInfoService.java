@@ -18,7 +18,7 @@ import java.util.List;
  **/
 @Service
 public class SystemInfoService extends BaseService {
-    public PageInfo<SystemInfo> findAllSystemInfoByUserName(Integer user, int page, int limit) {
+    public PageInfo<SystemInfo> findAllSystemInfoByUser(Integer user, int page, int limit) {
         PageHelper.startPage(page, limit);
         PageInfo<SystemInfo> pageInfo = new PageInfo<>(systemInfoMapper.selectList(new QueryWrapper<SystemInfo>()
                 .eq("user", user)
@@ -26,17 +26,19 @@ public class SystemInfoService extends BaseService {
         return pageInfo;
     }
 
-    public SystemInfo findSystemInfoByIp(String ip) {
+    public SystemInfo findSystemInfoByIpAndUser(String ip, Integer user) {
         return systemInfoMapper.selectOne(new QueryWrapper<SystemInfo>()
         .eq("ip", ip)
+        .eq("user", user)
         .eq("valid", 1));
     }
 
-    public PageInfo<SystemInfo> findSystemInfoByIp(String ip, int page, int limit) {
+    public PageInfo<SystemInfo> findSystemInfoIpLikeAndUser(String ip, Integer user, int page, int limit) {
         PageHelper.startPage(page, limit);
         ip = StringUtil.checkProperties(ip);
         PageInfo<SystemInfo> pageInfo = new PageInfo<>(systemInfoMapper.selectList(new QueryWrapper<SystemInfo>()
                 .like("ip", "%" + ip + "%")
+                .eq("user", user)
                 .eq("valid", 1)));
         return pageInfo;
     }
@@ -47,7 +49,7 @@ public class SystemInfoService extends BaseService {
         .eq("valid", 1));
     }
 
-    public Integer updateSystemInfoRemark(Integer id, String remark) {
+    public Integer updateSystemInfoRemarkById(Integer id, String remark) {
         SystemInfo systemInfo = new SystemInfo();
         systemInfo.setId(id);
         systemInfo.setRemark(remark);
@@ -69,12 +71,5 @@ public class SystemInfoService extends BaseService {
 
     public Integer insertSystemInfo(SystemInfo systemInfo) {
         return systemInfoMapper.insert(systemInfo);
-    }
-
-    public SystemInfo findSystemInfoByIpAndUser(String ip, Integer user) {
-        return systemInfoMapper.selectOne(new QueryWrapper<SystemInfo>()
-        .eq("ip", ip)
-        .eq("user", user)
-        .eq("valid", 1));
     }
 }

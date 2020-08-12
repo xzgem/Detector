@@ -3,7 +3,7 @@ package com.ryoua.controller;
 import com.google.gson.Gson;
 import com.ryoua.model.common.Audience;
 import com.ryoua.model.common.Result;
-import com.ryoua.service.ApiTestService;
+import com.ryoua.service.ContactService;
 import com.ryoua.service.SystemInfoService;
 import com.ryoua.service.UserService;
 import com.ryoua.utils.RedisUtil;
@@ -33,10 +33,10 @@ public class BaseController {
     @Autowired
     UserService userService;
     @Autowired
-    ApiTestService apiTestService;
+    ContactService contactService;
 
-    protected Result resultByFlag(Boolean flag) {
-        if (flag) {
+    protected Result resultByFlag(Integer flag) {
+        if (flag >= 1) {
             return Result.SUCCESS();
         } else {
             return Result.FAIL();

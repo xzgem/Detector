@@ -18,7 +18,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@TableName("auth_user")
+@TableName("a_user")
 public class User {
     @TableId(type = IdType.AUTO)
     private Integer id;

@@ -17,6 +17,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@TableName("a_contact")
 public class Contact {
     private Integer id;
     private Integer user;

@@ -49,7 +49,7 @@ public class TokenUtil {
             log.error("===== Token过期 =====", eje);
             throw new CustomException(ResultCode.PERMISSION_TOKEN_EXPIRED);
         } catch (Exception e) {
-            log.error("===== token解析异常 =====", e);
+            log.error("===== Token解析异常 =====", e);
             throw new CustomException(ResultCode.PERMISSION_TOKEN_INVALID);
         }
     }
