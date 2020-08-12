@@ -21,9 +21,10 @@ public class UserService extends BaseService {
      * 登录
      */
     public Boolean login(String username ,String password) {
-        User user = userMapper.selectOne(new QueryWrapper<User>().
-                eq("username", username).
-                eq("password", password));
+        User user = userMapper.selectOne(new QueryWrapper<User>()
+                .eq("username", username)
+                .eq("password", password)
+                .eq("valid", 1));
         if (user == null) {
             return false;
         }
@@ -44,8 +45,9 @@ public class UserService extends BaseService {
      * 根据用户名获取用户
      */
     public User findUserByUserName(String userName) {
-        return userMapper.selectOne(new QueryWrapper<User>().
-                eq("username", userName));
+        return userMapper.selectOne(new QueryWrapper<User>()
+                .eq("username", userName)
+                .eq("valid", 1));
     }
 
     /**

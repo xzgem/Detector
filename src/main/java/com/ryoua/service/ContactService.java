@@ -13,7 +13,10 @@ import java.util.List;
 @Service
 public class ContactService extends BaseService {
     public Integer deleteUserContact(Integer id) {
-        return contactMapper.deleteById(id);
+        Contact contact = new Contact();
+        contact.setId(id);
+        contact.setValid(0);
+        return contactMapper.updateById(contact);
     }
 
     public Integer updateUserContact(Integer id, String contact, Integer type) {
@@ -33,7 +36,8 @@ public class ContactService extends BaseService {
     }
 
     public List<Contact> findContactByUser(Integer user) {
-        return contactMapper.selectList(new QueryWrapper<Contact>().
-                eq("user", user));
+        return contactMapper.selectList(new QueryWrapper<Contact>()
+                .eq("user", user)
+                .eq("valid", 1));
     }
 }

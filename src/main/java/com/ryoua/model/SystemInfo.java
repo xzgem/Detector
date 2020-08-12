@@ -19,7 +19,7 @@ import java.util.List;
 @ToString
 public class SystemInfo {
     @TableId(type = IdType.AUTO)
-    private String id;
+    private Integer id;
     private String mid;
 
     private String ip;

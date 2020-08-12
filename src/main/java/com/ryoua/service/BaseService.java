@@ -1,7 +1,6 @@
 package com.ryoua.service;
 
-import com.ryoua.mapper.ContactMapper;
-import com.ryoua.mapper.UserMapper;
+import com.ryoua.mapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -14,4 +13,28 @@ public class BaseService {
 
     @Autowired
     protected ContactMapper contactMapper;
+
+    @Autowired
+    protected SystemInfoMapper systemInfoMapper;
+
+    @Autowired
+    protected ApiInfoMapper apiInfoMapper;
+
+    @Autowired
+    protected CpuLoadMapper cpuLoadMapper;
+
+    @Autowired
+    protected DiskInfoMapper diskInfoMapper;
+
+    @Autowired
+    protected DockerInfoMapper dockerInfoMapper;
+
+    @Autowired
+    protected MemoryLoadMapper memoryLoadMapper;
+
+    @Autowired
+    protected ProcessLoadMapper processLoadMapper;
+
+    @Autowired
+    protected TrafficLoadMapper trafficLoadMapper;
 }
