@@ -17,11 +17,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@TableName("a_contact")
+@TableName("contact")
 public class Contact {
     private Integer id;
     private Integer user;
     private String contact;
+    private Integer status;
     private Integer type;
     private String updateTime;
     private Long updateTimeMills;

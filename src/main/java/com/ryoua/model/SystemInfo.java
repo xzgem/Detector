@@ -44,7 +44,6 @@ public class SystemInfo {
 
     // 0:手动    1:自动
     private Integer autoRegister;
-    private String remark;
     private Integer user;
     // 0:失效    1:有效
     private Integer valid;

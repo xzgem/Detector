@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @TableName("m_api")
-public class Api {
+public class ApiInfo {
     private Integer id;
 
     private String url;
@@ -26,6 +27,6 @@ public class Api {
 
     private Integer user;
     private Integer valid;
-    private String updateTime;
-    private String createTime;
+    private Date updateTime;
+    private Date createTime;
 }

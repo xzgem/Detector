@@ -9,6 +9,7 @@ import com.ryoua.service.UserService;
 import com.ryoua.utils.RedisUtil;
 import com.ryoua.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * * @Author: RyouA
@@ -34,6 +35,8 @@ public class BaseController {
     UserService userService;
     @Autowired
     ContactService contactService;
+    @Autowired
+    RestTemplate restTemplate;
 
     protected Result resultByFlag(Integer flag) {
         if (flag >= 1) {

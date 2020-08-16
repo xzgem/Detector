@@ -52,7 +52,7 @@ public class SystemInfoService extends BaseService {
     public Integer updateSystemInfoRemarkById(Integer id, String remark) {
         SystemInfo systemInfo = new SystemInfo();
         systemInfo.setId(id);
-        systemInfo.setRemark(remark);
+//        systemInfo.setRemark(remark);
         return systemInfoMapper.updateById(systemInfo);
     }
 
@@ -63,11 +63,11 @@ public class SystemInfoService extends BaseService {
         return systemInfoMapper.updateById(systemInfo);
     }
 
-//    public void deleteSystemInfoByIds(List ids) {
-//        String deleteIds = ids.toString();
-//        deleteIds = StringUtil.mybatisUseIn(deleteIds);
-//        systemInfoMapper.deleteMachineByIds(deleteIds);
-//    }
+    public Integer deleteSystemInfoByIds(List ids) {
+        SystemInfo systemInfo = new SystemInfo();
+        systemInfo.setValid(0);
+        return systemInfoMapper.update(systemInfo, new QueryWrapper<SystemInfo>().in("id", ids));
+    }
 
     public Integer insertSystemInfo(SystemInfo systemInfo) {
         return systemInfoMapper.insert(systemInfo);

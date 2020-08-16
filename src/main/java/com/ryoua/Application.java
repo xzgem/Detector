@@ -17,6 +17,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class,args);
+        // TODO: 后台刷新进程 - 用于压缩redis数据
     }
 
     @Bean

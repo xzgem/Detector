@@ -24,7 +24,7 @@ import java.util.List;
 public class UserController extends BaseController {
     @PostMapping("/login")
     @JWTIgnore
-    @ApiOperation(value = "登录", notes = "登录", tags = "user", httpMethod = "POST")
+    @ApiOperation(value = "登录", notes = "登录", httpMethod = "POST")
     public Result login(HttpServletResponse response, @RequestBody User user) {
         User user1 = userService.findUserByUserName(user.getUsername());
         if (user1 == null || (!user1.getPassword().equals(user.getPassword()))) {
@@ -38,7 +38,7 @@ public class UserController extends BaseController {
 
     @PostMapping("/register")
     @JWTIgnore
-    @ApiOperation(value = "注册", notes = "注册", tags = "user", httpMethod = "POST")
+    @ApiOperation(value = "注册", notes = "注册", httpMethod = "POST")
     public Result register(@RequestBody User user) {
         if (userService.isUserExist(user.getUsername())) {
             return new Result(ResultCode.USER_IS_EXIST);
@@ -48,28 +48,28 @@ public class UserController extends BaseController {
     }
 
     @GetMapping("/contact")
-    @ApiOperation(value = "获取预警通知方式", notes = "获取预警通知方式", tags = "contact", httpMethod = "GET")
+    @ApiOperation(value = "获取预警通知方式", notes = "获取预警通知方式", httpMethod = "GET")
     public Result findContact() {
-        List<Contact> list = contactService.findContactByUser(UserLocal.getCurrentUserId());
+        List<Contact> list = contactService.findContactByUser(1);
         return Result.SUCCESS(list);
     }
 
     @PutMapping("/contact")
-    @ApiOperation(value = "更新手机/邮箱", notes = "更新手机/邮箱", tags = "contact", httpMethod = "PUT")
+    @ApiOperation(value = "更新手机/邮箱", notes = "更新手机/邮箱", httpMethod = "PUT")
     public Result updateContact(@RequestBody Contact contact) {
         Integer flag = contactService.updateUserContact(contact.getId(), contact.getContact(), contact.getType());
         return resultByFlag(flag);
     }
 
     @DeleteMapping("/contact/{id}")
-    @ApiOperation(value = "删除手机/邮箱", notes = "删除手机/邮箱", tags = "contact", httpMethod = "DELETE")
+    @ApiOperation(value = "删除手机/邮箱", notes = "删除手机/邮箱", httpMethod = "DELETE")
     public Result deleteContact(@PathVariable("id") Integer id) {
         Integer flag = contactService.deleteUserContact(id);
         return resultByFlag(flag);
     }
 
     @PostMapping("/contact")
-    @ApiOperation(value = "添加手机/邮箱", notes = "添加手机/邮箱", tags = "contact", httpMethod = "POST")
+    @ApiOperation(value = "添加手机/邮箱", notes = "添加手机/邮箱", httpMethod = "POST")
     public Result insertContact(@RequestBody Contact contact) {
         Integer flag = contactService.insertUserContact(UserLocal.getCurrentUserId(), contact.getContact(), contact.getType());
         return resultByFlag(flag);
