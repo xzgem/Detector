@@ -8,6 +8,8 @@ import com.ryoua.service.SystemInfoService;
 import com.ryoua.service.UserService;
 import com.ryoua.utils.RedisUtil;
 import com.ryoua.utils.TokenUtil;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,7 +17,10 @@ import org.springframework.web.client.RestTemplate;
  * * @Author: RyouA
  * * @Date: 2020/7/22
  **/
+@Slf4j
 public class BaseController {
+
+    protected Logger logger = null;
 
     static final String DETECTOR_APIINFO = "detector:apiinfo:";
     static final String DETECTOR_SYSTEMINFO = "detector:machineinfo:";

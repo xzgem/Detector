@@ -1,0 +1,59 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: auth-server
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://111.229.44.186:1521/detector?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 824780260
+
+  redis:
+    host: 49.234.193.41
+    port: 7778
+    timeout: 3000
+    lettuce:
+      pool:
+        max-active: 8
+        max-wait: 1
+        max-idle: 8
+        min-idle: 0
+
+appMethodLogger:
+  enable: true
+
+##jwt配置
+audience:
+  # 代表这个JWT的接收对象,存入audience
+  clientId: 098f6bcd4621d373cade4e832627b4f6
+  # 密钥, 经过Base64加密, 可自行替换
+  base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
+  # JWT的签发主体，存入issuer
+  name: restapiuser
+  # 过期时间，时间戳
+  expiresSecond: 172800
+
+mybatis:
+  type-aliases-package: com.ryoua.mapper.*
+  # spring boot集成mybatis的方式打印sql
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+custom:
+  config:
+    ignores:
+      # 需要过滤的 post 请求
+      post:
+      # 需要过滤的 get 请求
+      get:
+      # 需要过滤的请求，不限方法
+      pattern:
+        - "/swagger-ui.html/**"
+        - "/swagger-resources/**"
+
+
+
+
+

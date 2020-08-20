@@ -1,6 +1,7 @@
 package com.ryoua.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.ryoua.config.TimeConsume;
 import com.ryoua.handler.UserLocal;
 import com.ryoua.model.SystemInfo;
 import com.ryoua.model.common.Result;
@@ -21,6 +22,7 @@ import java.util.*;
  **/
 @RestController
 @Slf4j
+@TimeConsume
 public class SystemController extends BaseController{
 
 //    @PostMapping(value = "/systemInfo/{mid}}/{autoregister}")

@@ -1,0 +1,59 @@
+{
+  "groups": [
+    {
+      "name": "audience",
+      "type": "com.ryoua.model.common.Audience",
+      "sourceType": "com.ryoua.model.common.Audience"
+    },
+    {
+      "name": "jwt.config",
+      "type": "com.ryoua.config.JwtConfig",
+      "sourceType": "com.ryoua.config.JwtConfig"
+    }
+  ],
+  "properties": [
+    {
+      "name": "audience.base64-secret",
+      "type": "java.lang.String",
+      "sourceType": "com.ryoua.model.common.Audience"
+    },
+    {
+      "name": "audience.client-id",
+      "type": "java.lang.String",
+      "sourceType": "com.ryoua.model.common.Audience"
+    },
+    {
+      "name": "audience.expires-second",
+      "type": "java.lang.Integer",
+      "sourceType": "com.ryoua.model.common.Audience",
+      "defaultValue": 0
+    },
+    {
+      "name": "audience.name",
+      "type": "java.lang.String",
+      "sourceType": "com.ryoua.model.common.Audience"
+    },
+    {
+      "name": "jwt.config.key",
+      "type": "java.lang.String",
+      "description": "jwt 加密 key，默认值：RyouA.",
+      "sourceType": "com.ryoua.config.JwtConfig",
+      "defaultValue": "RyouA"
+    },
+    {
+      "name": "jwt.config.remember",
+      "type": "java.lang.Long",
+      "description": "开启 记住我 之后 jwt 过期时间，默认值 604800000 {@code 7 天}",
+      "sourceType": "com.ryoua.config.JwtConfig",
+      "defaultValue": 604800000
+    },
+    {
+      "name": "jwt.config.ttl",
+      "type": "java.lang.Long",
+      "description": "jwt 过期时间，默认值：36000000L {@code 600 分钟}.",
+      "sourceType": "com.ryoua.config.JwtConfig",
+      "defaultValue": 3600000
+    }
+  ],
+  "hints": []
+}
