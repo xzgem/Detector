@@ -34,13 +34,6 @@ audience:
   # 过期时间，时间戳
   expiresSecond: 172800
 
-mybatis:
-  type-aliases-package: com.ryoua.mapper.*
-  # spring boot集成mybatis的方式打印sql
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    map-underscore-to-camel-case: true
-
 custom:
   config:
     ignores:
@@ -52,8 +45,6 @@ custom:
       pattern:
         - "/swagger-ui.html/**"
         - "/swagger-resources/**"
-
-
-
-
-
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

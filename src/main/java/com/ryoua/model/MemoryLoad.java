@@ -3,9 +3,7 @@ package com.ryoua.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
@@ -13,8 +11,6 @@ import lombok.ToString;
  * * @Date: 2020/8/12
  **/
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
 @TableName("m_memory_load")
 public class MemoryLoad {
@@ -22,13 +18,18 @@ public class MemoryLoad {
     private Integer id;
     private String mid;
 
-    private String memorySize;
-    private String memoryUse;
-    private String memoryLess;
-    private String memoryUsage;
+    private Long memorySize;
+    private Long memoryUse;
+    private Long memoryLess;
+    private Double memoryUsage;
 
-    private String updateTime;
-    private Long updateTimeMills;
+    private String memorySizeStr;
+    private String memoryUseStr;
+    private String memoryLessStr;
+    private String memoryUsageStr;
+
+    private String createTime;
+    private Long createTimeMills;
 
     private Integer valid;
 }

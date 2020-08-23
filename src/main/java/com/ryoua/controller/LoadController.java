@@ -1,11 +1,13 @@
 package com.ryoua.controller;
 
+import com.ryoua.model.Load;
 import com.ryoua.model.common.Result;
 import com.ryoua.model.echarts.EchartsData;
 import com.ryoua.model.echarts.EchartsResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -16,13 +18,16 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @Slf4j
 public class LoadController extends BaseController{
-//    @PostMapping(value = "/loadInfo/register")
-//    public Result getLoadInfoFromServer( @RequestBody LoadInfo loadInfo) {
-//        log.info(loadInfo.toString());
-//        redisUtil.zAdd(DETECTOR_LOADINFO + loadInfo.getMid(), gson.toJson(loadInfo), loadInfo.getUpdateTimeMills());
-//        redisUtil.expire(DETECTOR_LOADINFO + loadInfo.getMid(), 1, TimeUnit.DAYS);
-//        return Result.SUCCESS();
-//    }
+    @PostMapping(value = "/load/register/{autoRegister}")
+    public Result getLoadInfoFromServer(@RequestBody Load load, @PathVariable("autoRegister") Integer autoRegister) {
+        if (autoRegister == 0) {
+            log.info(load.toString());
+        } else {
+            redisUtil.zAdd(DETECTOR_LOADINFO + load.getCpuLoad().getMid(), gson.toJson(load), load.getCreateTimeMills());
+            redisUtil.expire(DETECTOR_LOADINFO + load.getCpuLoad().getMid(), 1, TimeUnit.DAYS);
+        }
+        return Result.SUCCESS();
+    }
 //
 //    @GetMapping(value = "/loadInfo/{oid}/min")
 //    public Result getLoadInfo(@PathVariable("oid") String oid) {

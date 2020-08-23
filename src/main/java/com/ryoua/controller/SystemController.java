@@ -3,16 +3,25 @@ package com.ryoua.controller;
 import com.github.pagehelper.PageInfo;
 import com.ryoua.config.TimeConsume;
 import com.ryoua.handler.UserLocal;
+import com.ryoua.model.CpuLoad;
+import com.ryoua.model.Load;
+import com.ryoua.model.MemoryLoad;
 import com.ryoua.model.SystemInfo;
 import com.ryoua.model.common.Result;
+import com.ryoua.utils.TimeUtil;
+import com.ryoua.vo.CpuVo;
+import com.ryoua.vo.MemoryVo;
+import com.ryoua.vo.TimeStampData;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.*;
 
 
@@ -104,4 +113,82 @@ public class SystemController extends BaseController{
         Integer flag = systemInfoService.deleteSystemInfoByIds((List) delete.get("delete"));
         return  resultByFlag(flag);
     }
+
+    @GetMapping("/systemInfo/detail/load/recent/{mid}")
+    public String getRecentSystemLoad(@PathVariable("mid") String mid) {
+        TimeStampData timeStampData = new TimeStampData();
+        Long length = redisUtil.zZCard(DETECTOR_LOADINFO + mid);
+        Set<String> set = redisUtil.zRangeByScore(DETECTOR_LOADINFO + mid, System.currentTimeMillis() - 60 * 1000, System.currentTimeMillis());
+
+        List<Map> list = new ArrayList<>();
+
+        for (String s : set) {
+            Map<String, Map<String, Object>> result = new HashMap<>();
+            Load load = gson.fromJson(s, Load.class);
+            CpuVo cpuVo = voService.getCpuVo(load);
+            MemoryVo memoryVo = voService.getMemoryVo(load);
+
+            Map<String, Object> map = new HashMap<>();
+            map.put("cpu", cpuVo);
+            map.put("memory", memoryVo);
+            result.put(String.valueOf(load.getCreateTimeMills()), map);
+            list.add(result);
+        }
+
+        if (set.size() < 20) {
+            int size = list.size();
+            for (int i = 20 - size; i > 0; i--) {
+                Map<String, Map<String, Object>> result = new HashMap<>();
+                CpuVo cpuVo = voService.getDefaultCpuVo();
+                MemoryVo memoryVo = voService.getDefaultMemoryVo();
+
+                Map<String, Object> map = new HashMap<>();
+                map.put("cpu", cpuVo);
+                map.put("memory", memoryVo);
+                result.put(String.valueOf(System.currentTimeMillis() - i * 3000), map);
+                list.add(result);
+            }
+        }
+
+        timeStampData.setData(list);
+        return gson.toJson(timeStampData);
+    }
+
+    @GetMapping("/systemInfo/detail/load/realTime/{mid}")
+    public String getRealTimeSystemLoad(@PathVariable("mid") String mid) {
+        TimeStampData timeStampData = new TimeStampData();
+        Long length = redisUtil.zZCard(DETECTOR_LOADINFO + mid);
+        Set<String> set = redisUtil.zRangeByScore(DETECTOR_LOADINFO + mid, System.currentTimeMillis() - 3000, System.currentTimeMillis());
+
+
+        CpuVo cpuVo;
+        MemoryVo memoryVo;
+        Load load = new Load();
+
+        if (set.size() == 0) {
+            cpuVo = voService.getDefaultCpuVo();
+            memoryVo = voService.getDefaultMemoryVo();
+        } else {
+            load = gson.fromJson(set.toArray()[0].toString(), Load.class);
+            cpuVo = voService.getCpuVo(load);
+            memoryVo = voService.getMemoryVo(load);
+        }
+
+        Map<String, Map> result = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
+
+        map.put("cpu", cpuVo);
+        map.put("memory", memoryVo);
+
+        if (set.size() == 0)
+            result.put(String.valueOf(System.currentTimeMillis()), map);
+        else
+            result.put(String.valueOf(load.getCreateTimeMills()), map);
+
+        List<Map> list = new ArrayList<>();
+        list.add(result);
+        timeStampData.setData(list);
+        return gson.toJson(timeStampData);
+    }
+
 }

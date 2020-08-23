@@ -6,12 +6,14 @@ import com.ryoua.model.common.Result;
 import com.ryoua.service.ContactService;
 import com.ryoua.service.SystemInfoService;
 import com.ryoua.service.UserService;
+import com.ryoua.service.VoService;
 import com.ryoua.utils.RedisUtil;
 import com.ryoua.utils.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
+
 
 /**
  * * @Author: RyouA
@@ -42,6 +44,8 @@ public class BaseController {
     ContactService contactService;
     @Autowired
     RestTemplate restTemplate;
+    @Autowired
+    VoService voService;
 
     protected Result resultByFlag(Integer flag) {
         if (flag >= 1) {

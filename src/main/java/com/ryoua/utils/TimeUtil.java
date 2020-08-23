@@ -21,4 +21,10 @@ public class TimeUtil {
         SimpleDateFormat dateFormat = new SimpleDateFormat("s");
         return dateFormat.format(date);
     }
+
+    public static boolean isRecent(Long timeMills, Integer unit) {
+        Long current = System.currentTimeMillis();
+        return current - timeMills < unit * 10000;
+    }
+
 }
