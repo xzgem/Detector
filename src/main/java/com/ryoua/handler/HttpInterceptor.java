@@ -49,7 +49,7 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
         log.info("## authHeader= {}", authHeader);
 
         if (StringUtils.isBlank(authHeader)) {
-            log.info("### 用户未登录，请先登录 ###");
+            log.info("###=========用户未登录，请先登录===============###");
             throw new CustomException(ResultCode.USER_NOT_LOGGED_IN);        }
 
         // 获取token
